@@ -7,22 +7,30 @@
 //
 
 import Foundation
-import ReSwift
+import ReactiveReSwift
 
-open class Router<State: StateType>: StoreSubscriber {
+open class Router<ObservableProperty: ObservablePropertyType> where ObservableProperty.ValueType: StateType {
 
-    public typealias NavigationStateSelector = (State) -> NavigationState
+    public typealias NavigationStateSelector = (ObservableProperty.ValueType) -> NavigationState
 
-    var store: Store<State>
+    var store: Store<ObservableProperty>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue", attributes: [])
 
-    public init(store: Store<State>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
+    var storeDisposable: ObservableProperty.DisposableType?
+    
+    public init(store: Store<ObservableProperty>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
         self.store = store 
         self.routables.append(rootRoutable)
-
-        self.store.subscribe(self, selector: stateSelector)
+        
+        storeDisposable = self.store.observable.subscribe { state in
+            stateSelector(state)
+        }
+    }
+    
+    deinit {
+        storeDisposable?.dispose()
     }
 
     open func newState(state: NavigationState) {
@@ -200,7 +208,6 @@ open class Router<State: StateType>: StoreSubscriber {
 
             return routingActions
     }
-
 }
 
 func ReSwiftRouterStuck() {}

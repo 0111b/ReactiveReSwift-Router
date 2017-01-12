@@ -8,7 +8,7 @@
 
 import Quick
 import Nimble
-import ReSwift
+import ReactiveReSwift
 @testable import ReSwiftRouter
 
 class MockRoutable: Routable {
@@ -65,18 +65,14 @@ struct FakeAppState: StateType {
     var navigationState = NavigationState()
 }
 
-class FakeReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return state ?? FakeAppState()
-    }
+class FakeReducer: Reducer<FakeAppState> { action, state in
+    return state ?? FakeAppState()
 }
 
-struct AppReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return FakeAppState(
-            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
-        )
-    }
+struct AppReducer: Reducer<FakeAppState> { action, state in
+    return FakeAppState(
+        navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+    )
 }
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
