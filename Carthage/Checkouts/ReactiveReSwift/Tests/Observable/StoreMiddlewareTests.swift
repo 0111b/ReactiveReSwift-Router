@@ -18,10 +18,8 @@ class StoreMiddlewareTests: XCTestCase {
      */
     func testDecorateDispatch() {
         let store = Store(reducer: testValueStringReducer,
-            stateType: TestStringAppState.self,
             observable: ObservableProperty(TestStringAppState()),
-            middleware: Middleware(firstMiddleware, secondMiddleware),
-            dispatchQueue: dispatchQueue)
+            middleware: Middleware(firstMiddleware, secondMiddleware))
 
         let subscriber = TestStoreSubscriber<TestStringAppState>()
         store.observable.subscribe(subscriber.subscription)
@@ -29,9 +27,7 @@ class StoreMiddlewareTests: XCTestCase {
         let action = SetValueStringAction("OK")
         store.dispatch(action)
 
-        dispatchQueue.sync {
-            XCTAssertEqual(store.observable.value.testValue, "OK First Middleware Second Middleware")
-        }
+        XCTAssertEqual(store.observable.value.testValue, "OK First Middleware Second Middleware")
     }
 
     /**
@@ -39,10 +35,8 @@ class StoreMiddlewareTests: XCTestCase {
      */
     func testCanDispatch() {
         let store = Store(reducer: testValueStringReducer,
-            stateType: TestStringAppState.self,
             observable: ObservableProperty(TestStringAppState()),
-            middleware: Middleware(firstMiddleware, secondMiddleware, dispatchingMiddleware).flatMap { $1 },
-            dispatchQueue: dispatchQueue)
+            middleware: Middleware(firstMiddleware, secondMiddleware, dispatchingMiddleware).flatMap { $1 })
 
         let subscriber = TestStoreSubscriber<TestStringAppState>()
         store.observable.subscribe(subscriber.subscription)
@@ -50,9 +44,7 @@ class StoreMiddlewareTests: XCTestCase {
         let action = SetValueAction(10)
         store.dispatch(action)
 
-        dispatchQueue.sync {
-            XCTAssertEqual(store.observable.value.testValue, "10 First Middleware Second Middleware")
-        }
+        XCTAssertEqual(store.observable.value.testValue, "10 First Middleware Second Middleware")
     }
 
     /**
@@ -61,16 +53,12 @@ class StoreMiddlewareTests: XCTestCase {
     func testMiddlewareCanAccessState() {
         let property = ObservableProperty(TestStringAppState(testValue: "OK"))
         let store = Store(reducer: testValueStringReducer,
-                                    stateType: TestStringAppState.self,
                                     observable: property,
-                                    middleware: stateAccessingMiddleware,
-                                    dispatchQueue: dispatchQueue)
+                                    middleware: stateAccessingMiddleware)
 
         store.dispatch(SetValueStringAction("Action That Won't Go Through"))
 
-        dispatchQueue.sync {
-            XCTAssertEqual(store.observable.value.testValue, "Not OK")
-        }
+        XCTAssertEqual(store.observable.value.testValue, "Not OK")
     }
 
     /**
@@ -83,19 +71,16 @@ class StoreMiddlewareTests: XCTestCase {
         let property = ObservableProperty(TestStringAppState(testValue: "OK"))
 
         var store = Store(reducer: testValueStringReducer,
-                          stateType: TestStringAppState.self,
                           observable: property,
                           middleware: Middleware(filteringMiddleware1, filteringMiddleware2))
         store.dispatch(SetValueStringAction("Action That Won't Go Through"))
 
         store = Store(reducer: testValueStringReducer,
-                           stateType: TestStringAppState.self,
                            observable: property,
                            middleware: filteringMiddleware1)
         store.dispatch(SetValueStringAction("Action That Won't Go Through"))
 
         store = Store(reducer: testValueStringReducer,
-                      stateType: TestStringAppState.self,
                       observable: property,
                       middleware: filteringMiddleware2)
         store.dispatch(SetValueStringAction("Action That Won't Go Through"))
@@ -108,13 +93,9 @@ class StoreMiddlewareTests: XCTestCase {
         let multiplexingMiddleware = Middleware<CounterState>().increase { [$1, $1, $1] }
         let property = ObservableProperty(CounterState(count: 0))
         let store = Store(reducer: increaseByOneReducer,
-                          stateType: CounterState.self,
                           observable: property,
-                          middleware: multiplexingMiddleware,
-                          dispatchQueue: dispatchQueue)
+                          middleware: multiplexingMiddleware)
         store.dispatch(NoOpAction())
-        dispatchQueue.sync {
-            XCTAssertEqual(store.observable.value.count, 3)
-        }
+        XCTAssertEqual(store.observable.value.count, 3)
     }
 }

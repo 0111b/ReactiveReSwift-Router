@@ -1,8 +1,17 @@
 #Upcoming Release
+
+#3.0.2
+**Breaking API Changes:**
+
+- Remove StoreType - @Qata
+- Remove stateType: label from Store.init (this was required for StoreType to work) - @Qata
+- Change DispatchQueue handling location from Store to ObservableProperty - @Qata
+
 **API Changes:**
 
 - Add the `dispatchQueue:` argument to the initialiser. The queue is a DispatchQueue which is used as the execution context for  - @Qata
 - Use default arguments in the main initialiser and remove the convenience initialiser (Swift autogenerates convenience initialisers when default arguments are used) - @Qata
+- Add `map(_:)`, `distinct(_:)` and `distinct()` to `ObservableProperty` - @Qata
 
 **Bug Fixes:**
 

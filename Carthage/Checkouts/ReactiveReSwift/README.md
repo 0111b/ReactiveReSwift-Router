@@ -1,10 +1,10 @@
 # ReactiveReSwift
 
-[![Build Status](https://img.shields.io/travis/ReSwift/ReactiveReSwift/master.svg?style=flat-square)](https://travis-ci.org/ReSwift/ReactiveReSwift) [![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReactiveReSwift.svg?style=flat-square)](http://codecov.io/github/ReSwift/ReactiveReSwift) [![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReactiveReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReactiveReSwift/blob/master/LICENSE.md) [![Join the chat at https://gitter.im/ReactiveReSwift/Lobby](https://badges.gitter.im/ReactiveReSwift/Lobby.svg)](https://gitter.im/ReactiveReSwift/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-**Supported Swift Version:**: Swift 3.0.1
-
-# Introduction
+[![Build Status](https://img.shields.io/travis/ReSwift/ReactiveReSwift/master.svg)](https://travis-ci.org/ReSwift/ReactiveReSwift)
+[![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReactiveReSwift.svg)](http://codecov.io/github/ReSwift/ReactiveReSwift)
+![Swift Version](https://img.shields.io/badge/Swift-3.0.1-orange.svg)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReSwift/ReactiveReSwift/blob/master/LICENSE.md)
+[![Join the chat at https://gitter.im/ReactiveReSwift/Lobby](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ReactiveReSwift/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ReactiveReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of the unidirectional data flow architecture in Swift, derived from [ReSwift](https://github.com/ReSwift/ReSwift). ReactiveReSwift helps you to separate three important concerns of your app's components:
 
@@ -133,8 +133,9 @@ Here are some examples of what your code would look like if you were to leverage
 
 - [Documentation for ReactiveSwift](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/ReactiveSwift.md)
 - [Documentation for ReactiveKit](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/ReactiveKit.md)
-- [Documentation for RxSwift](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/RxSwift.md)
 - [Documentation for PromiseKit](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/PromiseKit.md)
+- [Documentation for RxSwift](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/RxSwift.md)
+- [Documentation for CwlSignal](https://github.com/ReSwift/ReactiveReSwift/tree/master/Docs/Reactive/CwlSignal.md)
 
 # Why ReactiveReSwift?
 
@@ -192,6 +193,7 @@ let package = Package(
 - [ReactiveKit Counter Example](https://github.com/Qata/ReactiveReSwift-ReactiveKitExample): A counter example that interfaces with ReactiveKit.
 - [PromiseKit Counter Example](https://github.com/Qata/ReactiveReSwift-PromiseKitExample): A counter example that interfaces with PromiseKit.
 - [RxSwift Counter Example](https://github.com/Qata/ReactiveReSwift-RxSwiftExample): A counter example that interfaces with RxSwift.
+- [CwlSignal Counter Example](https://github.com/Qata/ReactiveReSwift-CwlSignalExample): A counter example that interfaces with CwlSignal.
 
 # Contributing
 
@@ -199,7 +201,8 @@ There's still a lot of work to do here! We would love to see you involved! You c
 
 # Credits
 
-- Thanks a lot to [Dan Abramov](https://github.com/gaearon) for building [Redux](https://github.com/reactjs/redux) - all ideas in here and many implementation details were provided by his library.
+- Huge thanks to [Evan Czaplicki](https://github.com/evancz) for creating [Elm](https://github.com/elm-lang), the first language to implement unidirectional data flow as a paradigm.
+- Thanks a lot to [Dan Abramov](https://github.com/gaearon) for building [Redux](https://github.com/reactjs/redux), many ideas in here were provided by his library.
 - Thanks a lot to [Benjamin Encz](https://github.com/Ben-G) for building [ReSwift](https://github.com/ReSwift/ReSwift), the base from which this project was derived.
 
 # Get in touch
